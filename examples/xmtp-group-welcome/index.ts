@@ -44,15 +44,9 @@ async function main() {
           (msg) =>
             msg.senderInboxId.toLowerCase() === client.inboxId.toLowerCase(),
         );
-        const members = await conversation.members();
-        const wasMemberBefore = members.some(
-          (member: GroupMember) =>
-            member.inboxId.toLowerCase() === client.inboxId.toLowerCase() &&
-            member.installationIds.length > 1,
-        );
         console.log("hasSentBefore", hasSentBefore);
-        console.log("wasMemberBefore", wasMemberBefore);
-        if (!hasSentBefore && !wasMemberBefore) {
+        // Only send welcome message if agent hasn't sent any messages before in this group
+        if (!hasSentBefore) {
           await conversation.send("Hey thanks for adding me to the group");
         }
       }
@@ -65,7 +59,7 @@ async function main() {
     for await (const message of stream) {
       if (message.contentType?.typeId !== "group_updated") {
         console.log("Skipping message", message.content);
-        return;
+        continue;
       }
 
       const conversation = await client.conversations.getConversationById(
