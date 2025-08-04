@@ -2,6 +2,13 @@
 
 This example uses the [OpenAI](https://openai.com) API for GPT-based responses and [XMTP](https://xmtp.org) for secure messaging. You can test your agent on [xmtp.chat](https://xmtp.chat) or any other XMTP-compatible client.
 
+## Features
+
+- **Multi-round conversations**: The agent maintains conversation history for contextual responses
+- **Memory management**: Automatically limits conversation history to prevent token limit issues
+- **Per-conversation context**: Each conversation maintains its own independent history
+- **Secure messaging**: All conversations are encrypted end-to-end via XMTP
+
 ## Getting started
 
 > [!TIP]
